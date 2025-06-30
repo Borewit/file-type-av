@@ -1,0 +1,72 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+	"assist": { "actions": { "source": { "organizeImports": "off" } } },
+	"formatter": {
+		"enabled": false
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"complexity": {
+				"noForEach": "off"
+			},
+			"suspicious": {
+				"noEmptyBlockStatements": "error",
+				"useErrorMessage": "error"
+			},
+			"nursery": {},
+			"correctness": {
+				"noUnusedImports": "error",
+				"noNodejsModules": "error"
+			},
+			"style": {
+				"useConsistentBuiltinInstantiation": "error",
+				"useThrowNewError": "error",
+				"useThrowOnlyError": "error",
+				"noParameterAssign": { "level": "off" },
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSelfClosingElements": "error",
+				"useSingleVarDeclarator": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error",
+				"noUselessElse": "error",
+				"noRestrictedImports": {
+					"level": "error",
+					"options": {
+						"paths": {
+							"node:buffer": "Use Uint8Array instead of Buffer"
+						}
+					}
+				}
+			}
+		}
+	},
+	"files": {
+		"ignoreUnknown": true,
+		"includes": [
+			"**",
+			"!coverage",
+			"!yarn",
+			"!lib/**/*.d.ts",
+			"!lib/**/*.js",
+			"!test/**/*.d.ts",
+			"!test/**/*.js"
+		]
+	},
+	"overrides": [
+		{
+			"includes": ["test/**/*"],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noNodejsModules": "off"
+					}
+				}
+			}
+		}
+	]
+}

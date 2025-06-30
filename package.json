@@ -1,0 +1,38 @@
+{
+	"name": "@file-type/av",
+	"version": "0.1.0",
+	"description": "file-type plugin for improved audio / video type detection",
+	"type": "module",
+	"exports": "./lib/index.js",
+	"types": "./lib/index.d.ts",
+	"scripts": {
+		"clean": "del-cli 'lib/**/*.js' 'lib/**/*.js.map' 'lib/**/*.d.ts' 'src/**/*.d.ts'",
+		"compile": "tsc -p lib",
+		"lint:ts": "biome check",
+		"build": "npm run clean && npm run compile",
+		"test": "mocha",
+		"prepublishOnly": "npm run build",
+		"biome:migrate": "biome migrate --write"
+	},
+	"author": {
+		"name": "Borewit",
+		"url": "https://github.com/Borewit"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"@biomejs/biome": "2.0.6",
+		"@types/node": "^24.0.7",
+		"chai": "^5.2.0",
+		"del-cli": "^6.0.0",
+		"file-type": "^21.0.0",
+		"mocha": "11.1.0",
+		"typescript": "^5.8.3"
+	},
+	"files": [
+		"lib/**/*.js",
+		"lib/**/*.d.ts"
+	],
+	"dependencies": {
+		"music-metadata": "^11.5.0"
+	}
+}
