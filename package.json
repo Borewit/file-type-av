@@ -5,6 +5,7 @@
 	"type": "module",
 	"exports": "./lib/index.js",
 	"types": "./lib/index.d.ts",
+	"repository": "github:Borewit/file-type-av",
 	"scripts": {
 		"clean": "del-cli 'lib/**/*.js' 'lib/**/*.js.map' 'lib/**/*.d.ts' 'src/**/*.d.ts'",
 		"compile": "tsc -p lib",
