@@ -63,4 +63,26 @@ describe('AV Detector', () => {
 
 	});
 
+	describe('Ogg', () => {
+
+		it('audio (ogg/Vorbis)', async () => {
+			const type = await fileTypeFromFile( getSamplePath('vorbis.ogg'), {customDetectors: [detectAv]});
+			assert.strictEqual(type.ext, 'ogg');
+			assert.strictEqual(type.mime, 'audio/ogg; codecs=vorbis');
+		});
+
+		it('audio (ogg/Speex)', async () => {
+			const type = await fileTypeFromFile( getSamplePath('sample-spx-files-sample3.spx'), {customDetectors: [detectAv]});
+			assert.strictEqual(type.ext, 'spx');
+			assert.strictEqual(type.mime, 'audio/ogg; codecs=speex');
+		});
+
+		it('video (ogv)', async () => {
+			const type = await fileTypeFromFile( getSamplePath('echo-hereweare.ogv'), {customDetectors: [detectAv]});
+			assert.strictEqual(type.ext, 'ogv');
+			assert.strictEqual(type.mime, 'video/ogg');
+		});
+
+	});
+
 });

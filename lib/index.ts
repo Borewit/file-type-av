@@ -45,7 +45,39 @@ export const detectAv: Detector = {
 				ext: 'm4a',
 				mime: 'audio/mp4'
 			};
-		} // Root element: EBML
+		}
+
+		if (stringMatchesHeader(buffer, 'OggS')) {
+			const {format} = await parseFromTokenizer(tokenizer);
+
+			let codecValue: string;
+
+			if (format.hasVideo) {
+				return {
+					ext: 'ogv',
+					mime: 'video/ogg'
+				};
+			}
+
+			if (format.codec.startsWith('Vorbis')) {
+				return {
+					ext: 'ogg',
+					mime: 'audio/ogg; codecs=vorbis'
+				};
+			}
+
+			if (format.codec.startsWith('Speex')) {
+				return {
+					ext: 'spx',
+					mime: 'audio/ogg; codecs=speex'
+				};
+			}
+
+			return {
+				ext: 'ogg',
+				mime: 'audio/ogg'
+			}
+		}
 
 	}
 };
