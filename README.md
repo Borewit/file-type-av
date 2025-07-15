@@ -1,6 +1,6 @@
 [![NPM version](https://img.shields.io/npm/v/@file-type/av.svg)](https://npmjs.org/package/@file-type/av)
 [![Node.js CI](https://github.com/Borewit/file-type-av/actions/workflows/nodejs-ci.yml/badge.svg)](https://github.com/Borewit/file-type-av/actions/workflows/nodejs-ci.yml)
-[![npm downloads](http://img.shields.io/npm/dm/@file-av/xml.svg)](https://npmcharts.com/compare/@file-type/av?start=365)
+[![npm downloads](http://img.shields.io/npm/dm/@file-type/av.svg)](https://npmcharts.com/compare/@file-type/av?start=365)
 
 # @file-type/av
 
