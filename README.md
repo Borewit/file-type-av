@@ -34,7 +34,7 @@ console.log(JSON.stringify(fileType));
 	- `video/mp4`, `mp4`
 - Ogg:
 	- `audio/ogg; codecs=opus`, `opus` (Opus)
-	- `audio/ogg; codecs=opus`, `spx` (Speex)
+	- `audio/ogg; codecs=speex, `spx` (Speex)
 	- `audio/ogg; codecs=vorbis`, `ogg` (Vorbis
 	- `video/ogg`, `ogv` (Theora)
 - WebM:
