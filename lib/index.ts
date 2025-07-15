@@ -16,7 +16,7 @@ function stringMatchesHeader(data: Uint8Array, header: string) {
 }
 
 export const detectAv: Detector = {
-	id: 'xml',
+	id: 'av',
 	detect: async (tokenizer: ITokenizer) => {
 
 		const buffer = new Uint8Array(10);
@@ -33,6 +33,14 @@ export const detectAv: Detector = {
 						ext: 'mka',
 						mime: 'audio/matroska'
 					};
+				case 'EBML/webm':
+					return format.hasVideo ? {
+						ext: 'webm',
+						mime: 'video/webm'
+					} : {
+						ext: 'webm',
+						mime: 'audio/webm'
+					};
 			}
 		}
 
@@ -45,7 +53,55 @@ export const detectAv: Detector = {
 				ext: 'm4a',
 				mime: 'audio/mp4'
 			};
-		} // Root element: EBML
+		}
+
+		if (stringMatchesHeader(buffer, 'OggS')) {
+			const {format} = await parseFromTokenizer(tokenizer);
+
+			let codecValue: string;
+
+			if (format.hasVideo) {
+				return {
+					ext: 'ogv',
+					mime: 'video/ogg'
+				};
+			}
+
+			if (format.codec) {
+				if (format.codec.startsWith('Opus')) {
+					return {
+						ext: 'opus',
+						mime: 'audio/ogg; codecs=opus'
+					};
+				}
+
+				if (format.codec.startsWith('Vorbis')) {
+					return {
+						ext: 'ogg',
+						mime: 'audio/ogg; codecs=vorbis'
+					};
+				}
+
+				if (format.codec.startsWith('Speex')) {
+					return {
+						ext: 'spx',
+						mime: 'audio/ogg; codecs=speex'
+					};
+				}
+
+				if (format.codec.startsWith('FLAC')) {
+					return {
+						ext: 'flac',
+						mime: 'audio/ogg; codecs=flac'
+					};
+				}
+			}
+
+			return {
+				ext: 'ogg',
+				mime: 'audio/ogg'
+			}
+		}
 
 	}
 };

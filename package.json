@@ -7,7 +7,7 @@
 	"types": "./lib/index.d.ts",
 	"repository": "github:Borewit/file-type-av",
 	"scripts": {
-		"clean": "del-cli 'lib/**/*.js' 'lib/**/*.js.map' 'lib/**/*.d.ts' 'src/**/*.d.ts'",
+		"clean": "del-cli lib/**/*.js lib/**/*.js.map lib/**/*.d.ts src/**/*.d.ts",
 		"compile": "tsc -p lib",
 		"lint:ts": "biome check",
 		"build": "npm run clean && npm run compile",
@@ -34,6 +34,6 @@
 		"lib/**/*.d.ts"
 	],
 	"dependencies": {
-		"music-metadata": "^11.5.0"
+		"music-metadata": "^11.6.1"
 	}
 }
