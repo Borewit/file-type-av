@@ -1,6 +1,6 @@
 {
 	"name": "@file-type/av",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "file-type plugin for improved audio / video type detection",
 	"type": "module",
 	"exports": "./lib/index.js",
@@ -35,29 +35,30 @@
 	],
 	"dependencies": {
 		"music-metadata": "^11.6.1"
-	},"keywords": [
-	"mime",
-	"file",
-	"type",
-	"file-type",
-	"audio",
-	"video",
-	"matroska",
-	"media",
-	"music",
-	"mka",
-	"mkv",
-	"wma",
-	"wmv",
-	"ogg",
-	"speex",
-	"spx",
-	"m4a",
-	"mp4",
-	"MPEG4",
-	"vorbis",
-	"flac",
-	"ogv",
-	"theora"
-]
+	},
+	"keywords": [
+		"mime",
+		"file",
+		"type",
+		"file-type",
+		"audio",
+		"video",
+		"matroska",
+		"media",
+		"music",
+		"mka",
+		"mkv",
+		"wma",
+		"wmv",
+		"ogg",
+		"speex",
+		"spx",
+		"m4a",
+		"mp4",
+		"MPEG4",
+		"vorbis",
+		"flac",
+		"ogv",
+		"theora"
+	]
 }
