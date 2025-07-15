@@ -35,5 +35,29 @@
 	],
 	"dependencies": {
 		"music-metadata": "^11.6.1"
-	}
+	},"keywords": [
+	"mime",
+	"file",
+	"type",
+	"file-type",
+	"audio",
+	"video",
+	"matroska",
+	"media",
+	"music",
+	"mka",
+	"mkv",
+	"wma",
+	"wmv",
+	"ogg",
+	"speex",
+	"spx",
+	"m4a",
+	"mp4",
+	"MPEG4",
+	"vorbis",
+	"flac",
+	"ogv",
+	"theora"
+]
 }
