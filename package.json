@@ -34,7 +34,7 @@
 		"lib/**/*.d.ts"
 	],
 	"dependencies": {
-		"music-metadata": "^11.6.1"
+		"music-metadata": "^11.12.1"
 	},
 	"keywords": [
 		"mime",
