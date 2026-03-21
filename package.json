@@ -21,7 +21,7 @@
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"@biomejs/biome": "2.0.6",
+		"@biomejs/biome": "2.4.8",
 		"@types/node": "^24.0.7",
 		"chai": "^5.2.0",
 		"del-cli": "^6.0.0",
