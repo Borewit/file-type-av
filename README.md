@@ -9,6 +9,8 @@ This plugin helps differentiate between audio and video file types more precisel
 
 ## Installation
 
+Requires Node.js 22 or newer.
+
 ```bash
 npm install @file-type/av
 ```
