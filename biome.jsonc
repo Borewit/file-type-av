@@ -1,13 +1,14 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
 	"assist": { "actions": { "source": { "organizeImports": "off" } } },
 	"formatter": {
-		"enabled": false
+		"enabled": true,
+		"indentStyle": "tab"
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"complexity": {
 				"noForEach": "off"
 			},
@@ -53,8 +54,7 @@
 			"!yarn",
 			"!lib/**/*.d.ts",
 			"!lib/**/*.js",
-			"!test/**/*.d.ts",
-			"!test/**/*.js"
+			"!test/**/*.d.ts"
 		]
 	},
 	"overrides": [
