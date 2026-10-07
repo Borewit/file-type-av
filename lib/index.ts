@@ -2,6 +2,13 @@ import { parseFromTokenizer } from "music-metadata";
 import type { Detector } from "file-type";
 import type { ITokenizer } from "strtok3"; // ToDo: export from file-type
 
+const parserOptions = {
+	duration: false,
+	includeChapters: false,
+	skipCovers: true,
+	skipPostHeaders: true,
+};
+
 function matchesHeader(data: Uint8Array, header: Uint8Array | number[]) {
 	if (data.length < header.length) return false;
 	for (let i = 0; i < header.length; i++) {
@@ -22,7 +29,7 @@ export const detectAv: Detector = {
 		await tokenizer.peekBuffer(buffer);
 
 		if (matchesHeader(buffer, [0x1a, 0x45, 0xdf, 0xa3])) {
-			const { format } = await parseFromTokenizer(tokenizer);
+			const { format } = await parseFromTokenizer(tokenizer, parserOptions);
 			switch (format.container) {
 				case "EBML/matroska":
 					return format.hasVideo
@@ -48,7 +55,7 @@ export const detectAv: Detector = {
 		}
 
 		if (stringMatchesHeader(buffer.subarray(4), "ftyp")) {
-			const { format } = await parseFromTokenizer(tokenizer);
+			const { format } = await parseFromTokenizer(tokenizer, parserOptions);
 			return format.hasVideo
 				? {
 						ext: "mp4",
@@ -61,9 +68,7 @@ export const detectAv: Detector = {
 		}
 
 		if (stringMatchesHeader(buffer, "OggS")) {
-			const { format } = await parseFromTokenizer(tokenizer);
-
-			let codecValue: string;
+			const { format } = await parseFromTokenizer(tokenizer, parserOptions);
 
 			if (format.hasVideo) {
 				return {
