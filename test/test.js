@@ -1,6 +1,12 @@
 import path from "node:path";
+import { readFile } from "node:fs/promises";
+import { fromBuffer } from "strtok3";
 import { fileURLToPath } from "node:url";
-import { fileTypeFromFile } from "file-type";
+import {
+	fileTypeFromFile,
+	fileTypeFromBuffer,
+	fileTypeFromStream,
+} from "file-type";
 import { describe, it } from "mocha";
 import { assert } from "chai";
 
@@ -86,18 +92,56 @@ describe("AV Detector", () => {
 			const type = await fileTypeFromFile(getSamplePath("sample-3.wma"), {
 				customDetectors: [detectAv],
 			});
-			// assert.strictEqual(type.ext, 'wma')
+			assert.strictEqual(type.ext, "wma");
 			assert.strictEqual(type.mime, "audio/x-ms-asf");
 		});
 
-		it("video (wmv)", async () => {
+		it("video with a non-Windows Media codec (asf)", async () => {
 			const type = await fileTypeFromFile(
 				getSamplePath("sample-wmv-files-sample_960x540.wmv"),
 				{ customDetectors: [detectAv] },
 			);
-			// assert.strictEqual(type.ext, 'wmv')
+			assert.strictEqual(type.ext, "asf");
 			assert.strictEqual(type.mime, "video/x-ms-asf");
 		});
+	});
+
+	describe("ASF track classification", () => {
+		it("rejects incomplete or mismatched ASF header GUIDs", async () => {
+			const data = await readFile(getSamplePath("video.wmv"));
+			for (const length of [0, 10, 15]) {
+				assert.isUndefined(
+					await detectAv.detect(fromBuffer(data.subarray(0, length))),
+				);
+			}
+			const invalid = new Uint8Array(data);
+			invalid[15] ^= 1;
+			assert.isUndefined(await detectAv.detect(fromBuffer(invalid)));
+		});
+
+		it("detects audio-first ASF from buffers and streams", async () => {
+			const data = await readFile(getSamplePath("audio-first.wmv"));
+			const options = { customDetectors: [detectAv] };
+			const expected = { ext: "wmv", mime: "video/x-ms-asf" };
+			assert.deepEqual(await fileTypeFromBuffer(data, options), expected);
+			assert.deepEqual(
+				await fileTypeFromStream(new Blob([data]).stream(), options),
+				expected,
+			);
+		});
+
+		for (const [filename, ext, mime] of [
+			["video.wmv", "wmv", "video/x-ms-asf"],
+			["audio-first.wmv", "wmv", "video/x-ms-asf"],
+			["audio.asf", "asf", "audio/x-ms-asf"],
+		]) {
+			it(filename, async () => {
+				const type = await fileTypeFromFile(getSamplePath(filename), {
+					customDetectors: [detectAv],
+				});
+				assert.deepEqual(type, { ext, mime });
+			});
+		}
 	});
 
 	describe("Ogg", () => {

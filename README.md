@@ -51,9 +51,16 @@ console.log(JSON.stringify(fileType, null, 2));
 - `audio/webm` – `.webm`
 - `video/webm` – `.webm`
 
-### Windows Media
+### ASF / Windows Media
+
+The plugin inspects all tracks, giving video precedence over audio. Windows Media
+codecs use `.wma` or `.wmv`; other codecs retain `.asf`.
+
 - `audio/x-ms-asf` – `.wma`
 - `video/x-ms-asf` – `.wmv`
+- `audio/x-ms-asf` – `.asf` (other audio codecs)
+- `video/x-ms-asf` – `.asf` (other video codecs)
+- `application/vnd.ms-asf` – `.asf` (no audio or video tracks)
 
 ---
 

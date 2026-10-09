@@ -1,4 +1,4 @@
-import { parseFromTokenizer } from "music-metadata";
+import { parseFromTokenizer, TrackType } from "music-metadata";
 import type { Detector } from "file-type";
 import type { ITokenizer } from "strtok3"; // ToDo: export from file-type
 
@@ -25,8 +25,47 @@ function stringMatchesHeader(data: Uint8Array, header: string) {
 export const detectAv: Detector = {
 	id: "av",
 	detect: async (tokenizer: ITokenizer) => {
-		const buffer = new Uint8Array(10);
-		await tokenizer.peekBuffer(buffer);
+		const buffer = new Uint8Array(16);
+		await tokenizer.peekBuffer(buffer, { mayBeLess: true });
+
+		if (
+			matchesHeader(
+				buffer,
+				[
+					0x30, 0x26, 0xb2, 0x75, 0x8e, 0x66, 0xcf, 0x11, 0xa6, 0xd9, 0x00,
+					0xaa, 0x00, 0x62, 0xce, 0x6c,
+				],
+			)
+		) {
+			const { format } = await parseFromTokenizer(tokenizer, parserOptions);
+			if (format.hasVideo) {
+				const hasWindowsMediaVideo = format.trackInfo?.some(
+					(track) =>
+						track.type === TrackType.video &&
+						["WMV1", "WMV2", "WMV3", "WVC1"].includes(track.codecId ?? ""),
+				);
+				return {
+					ext: hasWindowsMediaVideo ? "wmv" : "asf",
+					mime: "video/x-ms-asf",
+				};
+			}
+
+			if (format.hasAudio) {
+				const hasWindowsMediaAudio = format.trackInfo?.some(
+					(track) =>
+						track.type === TrackType.audio &&
+						["0x0160", "0x0161", "0x0162", "0x0163"].includes(
+							track.codecId ?? "",
+						),
+				);
+				return {
+					ext: hasWindowsMediaAudio ? "wma" : "asf",
+					mime: "audio/x-ms-asf",
+				};
+			}
+
+			return { ext: "asf", mime: "application/vnd.ms-asf" };
+		}
 
 		if (matchesHeader(buffer, [0x1a, 0x45, 0xdf, 0xa3])) {
 			const { format } = await parseFromTokenizer(tokenizer, parserOptions);
