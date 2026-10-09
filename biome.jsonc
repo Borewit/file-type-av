@@ -59,7 +59,7 @@
 	},
 	"overrides": [
 		{
-			"includes": ["test/**/*"],
+			"includes": ["test/**/*", ".github/scripts/dependabot/*.test.cjs"],
 			"linter": {
 				"rules": {
 					"correctness": {

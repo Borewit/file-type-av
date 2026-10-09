@@ -15,6 +15,7 @@
 		"lint:ts": "biome check",
 		"build": "npm run clean && npm run compile",
 		"test": "mocha",
+		"test:dependabot": "node .github/scripts/dependabot/classify.test.cjs",
 		"prepublishOnly": "npm run build",
 		"biome:migrate": "biome migrate --write"
 	},
