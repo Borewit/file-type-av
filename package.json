@@ -1,6 +1,6 @@
 {
 	"name": "@file-type/av",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "file-type plugin for improved audio / video type detection",
 	"type": "module",
 	"engines": {
